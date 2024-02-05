@@ -35,7 +35,8 @@ def decode_rune(b: bytes) -> (int, int):
 
     if b0 < 128:
         return b0, 1
-    elif b0 & _1110xxxx == _110xxxxx:
+
+    if b0 & _1110xxxx == _110xxxxx:
         if len(b) < 2 or not (b[1] & _110xxxxx == _10xxxxxx):
             raise ValueError("invalid 2 bytes.")
         b1: int = b[1]
@@ -43,7 +44,8 @@ def decode_rune(b: bytes) -> (int, int):
         if bu < _10xxxxxx:
             raise ValueError("overlong.")
         return bu, 2
-    elif b0 & _11110xxx == _1110xxxx:
+
+    if b0 & _11110xxx == _1110xxxx:
         if len(b) < 3:
             raise ValueError("invalid 3 bytes.")
         b1, b2 = b[1], b[2]
@@ -55,7 +57,8 @@ def decode_rune(b: bytes) -> (int, int):
         if bu < 0b100000000000:
             raise ValueError("overlong.")
         return bu, 3
-    elif b0 & 0b11111000 == _11110xxx:
+
+    if b0 & 0b11111000 == _11110xxx:
         if len(b) < 4:
             raise ValueError("invalid 4 bytes.")
         b1, b2, b3 = b[1], b[2], b[3]
@@ -75,8 +78,8 @@ def decode_rune(b: bytes) -> (int, int):
             raise ValueError("overlong.")
 
         return bu, 4
-    else:
-        raise ValueError("invalid.")
+
+    raise ValueError("invalid.")
 
 
 def encode_rune(code_point: int) -> bytes:

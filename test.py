@@ -1,5 +1,5 @@
 import pytest
-from utf8 import decode_rune, encode_rune
+from main import decode_rune, encode_rune
 
 
 # 1 byte (ASCII)
