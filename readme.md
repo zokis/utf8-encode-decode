@@ -15,15 +15,14 @@ UTF-8 (8-bit Unicode Transformation Format) is a variable width character encodi
 To get started with this project, clone the repository and install the required dependencies:
 
 ```bash
-Copy code
 git clone git@github.com:zokis/utf8-encode-decode.git
 cd utf8-encode-decode
 pip install -r requirements.txt
 ```
 
 Run the tests to ensure everything is set up correctly:
-```
-pytest
+```bash
+pytest test.py
 ```
 
 # How to Use
