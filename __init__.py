@@ -15,6 +15,19 @@ _11110xxx = 0b11110000
 
 
 def decode_rune(b: bytes) -> (int, int):
+    """
+    Decodes a UTF-8 character from a sequence of bytes.
+
+    Args:
+        b: A sequence of bytes representing a UTF-8 character.
+
+    Returns:
+        A tuple (Unicode code point, number of bytes in the UTF-8 sequence).
+
+    Raises:
+        ValueError: If the byte sequence is invalid or represents an overlong encoding.
+    """
+
     if len(b) == 0:
         raise ValueError("empty bytes.")
 
@@ -67,6 +80,18 @@ def decode_rune(b: bytes) -> (int, int):
 
 
 def encode_rune(code_point: int) -> bytes:
+    """
+    Encodes a Unicode code point into its UTF-8 bytes representation.
+
+    Args:
+        code_point: The Unicode code point to be encoded.
+
+    Returns:
+        A sequence of bytes representing the code point in UTF-8.
+
+    Raises:
+        ValueError: If the code point is outside the allowed range (0x0 to 0x10FFFF).
+    """
     if code_point < 0 or code_point > 0b100001111111111111111:
         raise ValueError("invalid.")
 
