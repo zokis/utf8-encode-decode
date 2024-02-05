@@ -100,13 +100,13 @@ def encode_rune(code_point: int) -> bytes:
         return bytes([code_point])
 
     #  2 bytes
-    elif code_point <= 0b11111111111:
+    if code_point <= 0b11111111111:
         return bytes(
             [_110xxxxx | (code_point >> 6), _10xxxxxx | (code_point & 0b00111111)]
         )
 
     #  3 bytes
-    elif code_point <= 0b1111111111111111:
+    if code_point <= 0b1111111111111111:
         return bytes(
             [
                 _1110xxxx | (code_point >> 12),
@@ -116,12 +116,11 @@ def encode_rune(code_point: int) -> bytes:
         )
 
     #  4 bytes
-    else:
-        return bytes(
-            [
-                _11110xxx | (code_point >> 18),
-                0b10000000 | ((code_point >> 12) & 0b00111111),
-                0b10000000 | ((code_point >> 6) & 0b00111111),
-                0b10000000 | (code_point & 0b00111111),
-            ]
-        )
+    return bytes(
+        [
+            _11110xxx | (code_point >> 18),
+            0b10000000 | ((code_point >> 12) & 0b00111111),
+            0b10000000 | ((code_point >> 6) & 0b00111111),
+            0b10000000 | (code_point & 0b00111111),
+        ]
+    )
